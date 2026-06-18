@@ -1,2 +1,3 @@
-# Network-packet-sniffer
-A dual-domain network monitor: capturing raw packet data via Scapy to engineer features for machine learning-based traffic analysis.
+#port-scanner
+A multithreaded TCP port scanner built in Python using sockets, thread pools, and basic banner grabbing.
+Work in progress, te-hee
