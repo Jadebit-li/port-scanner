@@ -27,7 +27,7 @@ def scan_port(host, port_number):
                 banner = s.recv(1024)
             except socket.timeout:
                 banner = b"open but no banner"
-        decoded = banner.decode('utf-8', errors='ignore')
+        decoded = banner.decode('utf-8', errors='ignore').split('\n')[0].strip()
         service = identify_service(decoded)
         return f" | open | {service} | {decoded}"
     except ConnectionRefusedError:
