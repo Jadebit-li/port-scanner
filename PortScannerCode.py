@@ -1,6 +1,9 @@
 import socket
 import threading
 from concurrent.futures import ThreadPoolExecutor
+import json
+with open("cve_database.json") as f:
+    CVE_DB = json.load(f)
 
 lock = threading.Lock()
 results = []
@@ -60,3 +63,10 @@ with ThreadPoolExecutor(max_workers=50) as executor:
 
 for r in sorted(results):
     print(r)
+
+def check_cve(service, version): # takes two separate strings
+    #service is like the name of the person and version like phone number, and thats how we saved them in the database
+    key = service + " " + version    # glue them into one string matching dict format
+    return CVE_DB.get(key, [])   # look it up safely, empty list if not found
+
+print(check_cve("OpenSSH", "6.6.1p1"))
