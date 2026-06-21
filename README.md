@@ -12,6 +12,9 @@ A multi-threaded Python port scanner that identifies open ports, grabs service b
 
 ## Sample report
 
+![Port scan report sample](report1)
+![Port scan report sample](report2)
+
 
 ## Tech Stack
 * Python 3
