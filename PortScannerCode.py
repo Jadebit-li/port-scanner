@@ -3,6 +3,22 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 import json
 import re
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--host", required=True)
+parser.add_argument("--ports", required=True)
+args = parser.parse_args()
+
+# print("HOST:", args.host)
+# print("START:", start)
+# print("END:", end)
+
+sports = args.ports.split('-')
+start = int(sports[0])
+end = int(sports[1]) + 1
+
+
 with open("cve_database.json") as f:
     CVE_DB = json.load(f)
 
@@ -52,7 +68,7 @@ def identify_service(banner):
     return "Unknown"
 
 def scan_and_store(port):
-    result = scan_port("scanme.nmap.org", port)
+    result = scan_port(args.host, port)
     if "open" in result:
         with lock:
             results.append(f"Port {port} {result}")
@@ -78,7 +94,8 @@ def check_cve(service, version): # takes two separate strings
 #instead of this, we use:
 
 with ThreadPoolExecutor(max_workers=50) as executor:
-    executor.map(scan_and_store, range(1,1001))
+    executor.map(scan_and_store, range(start,end))
 
 for r in sorted(results):
     print(r)
+
