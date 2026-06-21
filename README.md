@@ -25,8 +25,11 @@ A multi-threaded Python port scanner that identifies open ports, grabs service b
 * json — local CVE database
 
 ## Usage
+```bash
 python3 scanner.py --host scanme.nmap.org --ports 1-1000
-This scans the specified host across the given port range and generates report.html in the same directory.
+```
+
+This scans the specified host across the given port range and generates `report.html` in the same directory.
 
 Arguments:
 --host — target hostname or IP address (required)
