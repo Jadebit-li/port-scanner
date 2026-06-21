@@ -4,19 +4,30 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import re
 import argparse
+import time
+
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", required=True)
 parser.add_argument("--ports", required=True)
 args = parser.parse_args()
 
-sports = args.ports.split('-')
-start = int(sports[0])
-end = int(sports[1]) + 1
+try:
+    sports = args.ports.split('-')
+    start = int(sports[0])
+    end = int(sports[1]) + 1
+except ValueError:
+    print("Error: --ports must be in the format START-END, e.g. 1-1000")
+    exit()
 
 
-with open("cve_database.json") as f:
-    CVE_DB = json.load(f)
+try:
+    with open("cve_database.json") as f:
+        CVE_DB = json.load(f)
+except FileNotFoundError:
+    print("Error: cve_database.json not found. Make sure it's in the same folder as this script.")
+    exit()
 
 lock = threading.Lock()
 results = []
@@ -54,8 +65,11 @@ def scan_port(host, port_number):
         return "closed"
     except socket.timeout:
         return "filtered"
+    except socket.gaierror:
+        return "invalid host"
     finally:
         s.close()
+
 
 def identify_service(banner):
     for key, value in SERVICE_SIGNATURES.items():
@@ -82,6 +96,11 @@ def check_cve(service, version): # takes two separate strings
     #service is like the name of the person and version like phone number, and thats how we saved them in the database
     key = service + " " + version    # glue them into one string matching dict format
     return CVE_DB.get(key, [])   # look it up safely, empty list if not found
+
+start_time = time.time()
+# ... scan happens ...
+end_time = time.time()
+duration = end_time - start_time
 
 
 # for i in range (1, 101):
