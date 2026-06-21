@@ -10,10 +10,6 @@ parser.add_argument("--host", required=True)
 parser.add_argument("--ports", required=True)
 args = parser.parse_args()
 
-# print("HOST:", args.host)
-# print("START:", start)
-# print("END:", end)
-
 sports = args.ports.split('-')
 start = int(sports[0])
 end = int(sports[1]) + 1
@@ -96,6 +92,26 @@ def check_cve(service, version): # takes two separate strings
 with ThreadPoolExecutor(max_workers=50) as executor:
     executor.map(scan_and_store, range(start,end))
 
-for r in sorted(results):
-    print(r)
+# for r in sorted(results):
+#     print(r)
 
+html = html = """
+<html>
+<head>
+<style>
+table { border-collapse: collapse; width: 100%; font-family: monospace; }
+td, th { border: 1px solid #444; padding: 8px; text-align: left; }
+th { background-color: #222; color: white; }
+</style>
+</head>
+<body>
+<h1>Port Scan Report</h1>
+<table>
+<tr><th>Result</th></tr>
+"""
+for r in results:
+    html = html + "<tr><td>" + r + "</td></tr>"
+html = html + "</table></body></html>"
+
+with open("report.html", "w") as f:
+    f.write(html)
