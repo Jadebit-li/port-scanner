@@ -1,14 +1,33 @@
 
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 <style>
-table { border-collapse: collapse; width: 100%; font-family: monospace; }
-td, th { border: 1px solid #444; padding: 8px; text-align: left; }
-th { background-color: #222; color: white; }
+body { background-color: #fdfdf8; color: #234f3f; font-family: 'Quicksand', sans-serif; font-size: 16px; padding: 30px; }
+h1 { color: #234f3f; font-size: 32px; font-weight: 700; }
+h2 { color: #234f3f; font-size: 22px; font-weight: 700; margin-top: 40px; }
+table { border-collapse: separate; border-spacing: 0; width: 100%; margin-bottom: 30px; border: 3px solid #5da789; border-radius: 16px; overflow: hidden; box-shadow: 4px 4px 0px rgba(93, 167, 137, 0.3); }
+td, th { padding: 14px 18px; text-align: left; font-size: 15px; border-bottom: 2px solid #c9e0d2; }
+th { background-color: #82b89c; color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+.summary-table td { background-color: #e8f2eb; color: #234f3f; }
+.summary-table th { background-color: #5da789; }
+.open-row td { background-color: #cde8d8; }
+.filtered-row td { background-color: #fdf6dc; }
 </style>
 </head>
 <body>
 <h1>Port Scan Report</h1>
+<table class="summary-table">
+<tr><th>Target</th><td>scanme.nmap.org</td></tr>
+<tr><th>Port Range</th><td>1-1000</td></tr>
+<tr><th>Scan Time</th><td>6.38 seconds</td></tr>
+<tr><th>Total Ports Scanned</th><td>1000</td></tr>
+<tr><th>Open</th><td>2</td></tr>
+<tr><th>Closed</th><td>991</td></tr>
+<tr><th>Filtered</th><td>7</td></tr>
+</table>
+
+<h2>Open and Filtered Ports</h2>
 <table>
 <tr><th>Result</th></tr>
-<tr><td>Port 22  | open | OpenSSH | SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13 | CVEs: ['CVE-2016-20012', 'CVE-2023-48795']</td></tr><tr><td>Port 80  | open | Apache | HTTP/1.1 200 OK | CVEs: ['CVE-2021-44224', 'CVE-2014-0117', 'CVE-2014-0226']</td></tr></table></body></html>
+<tr class="open-row"><td>Port 22  | open | OpenSSH | SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13 | CVEs: ['CVE-2016-20012', 'CVE-2023-48795']</td></tr><tr class="open-row"><td>Port 80  | open | Apache | HTTP/1.1 200 OK | CVEs: ['CVE-2021-44224', 'CVE-2014-0117', 'CVE-2014-0226']</td></tr><tr class="filtered-row"><td>Port 25 | filtered</td></tr><tr class="filtered-row"><td>Port 136 | filtered</td></tr><tr class="filtered-row"><td>Port 139 | filtered</td></tr><tr class="filtered-row"><td>Port 138 | filtered</td></tr><tr class="filtered-row"><td>Port 135 | filtered</td></tr><tr class="filtered-row"><td>Port 137 | filtered</td></tr><tr class="filtered-row"><td>Port 445 | filtered</td></tr></table></body></html>
